@@ -27,3 +27,44 @@
     echo "Unique numbers: " . implode(', ', $results['uniqueNumbers']) . PHP_EOL;
     echo "Sum: " . $results['sum'] . PHP_EOL;
     echo "Average: " . $results['average'] . PHP_EOL;
+
+//================================================================================================================
+// That's for "Practice 2" task.
+
+    $studentsArray = [
+        "Adam" => "C",
+        "Alex" => "B",
+        "Amanda" => "A",
+        "Ben" => "E",
+        "Clive" =>"F",
+        "Dave" => "C",
+        "Kile" => "A"
+    ];
+
+    // Here we can add a new student to our array.
+    function arrayAssociation(String $name, String $grade): void
+    {
+        global $studentsArray;
+
+        $studentsArray[$name] = $grade;
+    }
+
+    // This is how we find grade using a "key".
+    function findGrade(String $name): ?string
+    {
+        global $studentsArray;
+
+        return $studentsArray[$name] ?? null;
+    }
+
+    // Test of adding a new student
+    arrayAssociation("Robin", "A");
+
+    echo "Students: " . PHP_EOL;                                            // Print's full array of students
+    print_r ($studentsArray);
+
+    // Test of finding a grade
+    $grade = findGrade("Robin");                                      // Print's a grade or a default answer
+    echo "Student's grade is: " . ($grade ?? "Student not found") . PHP_EOL;
+
+//================================================================================================================
