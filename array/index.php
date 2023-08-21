@@ -28,6 +28,8 @@
     echo "Sum: " . $results['sum'] . PHP_EOL;
     echo "Average: " . $results['average'] . PHP_EOL;
 
+    print_r('===================================================================' . PHP_EOL);
+
 //================================================================================================================
 // That's for "Practice 2" task.
 
@@ -67,4 +69,66 @@
     $grade = findGrade("Robin");                                      // Print's a grade or a default answer
     echo "Student's grade is: " . ($grade ?? "Student not found") . PHP_EOL;
 
+    print_r('===================================================================' . PHP_EOL);
+
 //================================================================================================================
+// That's for "Practice 3" task.
+
+function arrayMapping (array $stringArray): array
+{   // Here we filter all elements smaller than 5 characters
+    $filteredArray = array_filter($stringArray, function ($string) {
+        return strlen($string) >= 5;
+    });
+    // here we make all elements to upper case and mapping them
+    return array_map('strtoupper',$filteredArray);
+}
+
+//example of arrayMapping function
+$testMapping = ["beans", "cat", "coffee", "tea", "barrel", "rumble", "camel", "mercedes", "grapefruit"];
+$result = arrayMapping($testMapping);
+print_r($result);
+
+
+function modifyArray(array $namesArray, string $oldName, string $newName): array
+{
+    // Check if old name exists in the array
+    if (in_array($oldName, $namesArray)) {
+        // Replace old name with new name using array_map
+        $modifiedArray = array_map(function ($name) use ($oldName, $newName) {
+            return ($name === $oldName) ? $newName : $name;
+        }, $namesArray);
+    } else {
+        // Add new name to array
+        $namesArray[] = $newName;
+        $modifiedArray = $namesArray;
+    }
+
+    return $modifiedArray;
+}
+
+$namesArray = [];
+$stop = false;
+
+while (!$stop) {
+    // Prompt user to enter a name
+    $name = readline("Enter a name (Type 'stop' to finish): ");
+
+    if ($name === "stop") {
+        $stop = true; // Exit loop if user enters 'stop'
+    } else {
+        if (in_array($name, $namesArray)) {
+            echo "Name already exists. Please enter a different name." . PHP_EOL;
+        } else {
+            $namesArray[] = $name; // Add the name to the array
+        }
+    }
+}
+
+echo "Original Names Array: " . implode(", ", $namesArray) . PHP_EOL;
+
+$oldName = readline("Enter the name to replace: ");
+$newName = readline("Enter the new name: ");
+
+$modifiedNames = modifyArray($namesArray, $oldName, $newName);
+
+echo "Modified Names Array: " . implode(", ", $modifiedNames) . PHP_EOL;
